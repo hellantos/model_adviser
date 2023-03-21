@@ -1,0 +1,65 @@
+rules:
+  - id: create-publisher-rule
+    patterns:
+      - pattern: |
+          $X.create_publisher($TYPE,$ARG, ...)
+      - pattern-not: ....create_publisher(..., "...", ...)
+    message: Publisher of "$TYPE" created using variable "$ARG" as name. Please use
+      the publisher's name directly in the function.
+    languages:
+      - python3
+    severity: WARNING
+  - id: create-subscriber-rule
+    patterns:
+      - pattern: |
+          $X.create_subscription($TYPE,$ARG, ...)
+      - pattern-not: ....create_subscription(..., "...", ...)
+    message: Subscriber of "$TYPE" created using variable "$ARG" as name. Please use
+      the subscriber's name directly in the function.
+    languages:
+      - python3
+    severity: WARNING
+  - id: create-service-rule
+    patterns:
+      - pattern: |
+          $X.create_service($TYPE,$ARG, ...)
+      - pattern-not: ....create_service(..., "...", ...)
+    message: Service of "$TYPE" created using variable "$ARG" as name. Please use
+      the service's name directly in the function.
+    languages:
+      - python3
+    severity: WARNING
+  - id: create-client-rule
+    patterns:
+      - pattern: |
+          $X.create_client($TYPE,$ARG, ...)
+      - pattern-not: ....create_client(..., "...", ...)
+    message: Client of "$TYPE" created using variable "$ARG" as name. Please use
+      the client's name directly in the function.
+    languages:
+      - python3
+    severity: WARNING
+  - id: create-action-server-rule
+    patterns:
+      - pattern-either:
+          - pattern: ActionServer($TYPE,$ARG, $ARG1,...)
+          - pattern: $X.ActionServer($TYPE,$ARG, $ARG1,...)
+      - pattern-not: $X.ActionServer(..., "...", ...)
+      - pattern-not: ActionServer(..., "...", ...)
+    message: Action server of "$ARG" created using variable "$ARG1" as name. Please
+      use the action server's name directly in the function.
+    languages:
+      - python3
+    severity: WARNING
+  - id: create-action-client-rule
+    patterns:
+      - pattern-either:
+          - pattern: ActionClient($TYPE,$ARG,...)
+          - pattern: $X.ActionClient($TYPE,$ARG,...)
+      - pattern-not: $X.ActionClient(..., "...", ...)
+      - pattern-not: ActionClient(..., "...", ...)
+    message: Action client of "$TYPE" created using variable "$ARG" as name. Please
+      use the action client's name directly in the function.
+    languages:
+      - python3
+    severity: WARNING

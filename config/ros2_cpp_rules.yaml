@@ -1,0 +1,55 @@
+rules:
+  - id: create-publisher-rule
+    patterns:
+      - pattern: ...->create_publisher<$TYPE>($ARG, ...)
+      - pattern-not-regex: .*->create_publisher<.*>(\(\s*"[A-Z0-9a-z~\/_]*",.*)
+    message: Client of "$TYPE" created using variable "$ARG" as name. Please use the
+      client's name directly in the function.
+    languages:
+      - cpp
+    severity: WARNING
+  - id: create-subscriber-rule
+    patterns:
+      - pattern: ...->create_subscription<$TYPE>($ARG, ...)
+      - pattern-not-regex: .*->create_subscription<.*>(\(\s*"[A-Z0-9a-z~\/_]*",.*)
+    message: Subscriber of "$TYPE" created using variable "$ARG" as name. Please use
+      the subscriber's name directly in the function.
+    languages:
+      - cpp
+    severity: WARNING
+  - id: create-service-rule
+    patterns:
+      - pattern: ...->create_service<$TYPE>($ARG, ...)
+      - pattern-not-regex: .*->create_service<.*>(\(\s*"[A-Z0-9a-z~\/_]*",.*)
+    message: Service of "$TYPE" created using variable "$ARG" as name. Please use the
+      service's name directly in the function.
+    languages:
+      - cpp
+    severity: WARNING
+  - id: create-client-rule
+    patterns:
+      - pattern: ...->create_client<$TYPE>($ARG, ...)
+      - pattern-not-regex: .*->create_client<.*>(\(\s*"[A-Z0-9a-z~\/_]*",.*)
+    message: Client of "$TYPE" created using variable "$ARG" as name. Please use the
+      client's name directly in the function.
+    languages:
+      - cpp
+    severity: WARNING
+  - id: create-action-server-rule
+    patterns:
+      - pattern: rclcpp_action::create_server<$TYPE>($ARG, ...)
+      - pattern-not-regex: rclcpp_action\:\:create_server<.*>(\(\s*"[A-Z0-9a-z~\/_]*",.*)
+    message: Action server of "$TYPE" created using variable "$ARG" as name. Please
+      use the action server's name directly in the function.
+    languages:
+      - cpp
+    severity: WARNING
+  - id: create-action-client-rule
+    patterns:
+      - pattern: rclcpp_action::create_client<$TYPE>($ARG, ...)
+      - pattern-not-regex: rclcpp_action\:\:create_client<.*>(\(\s*"[A-Z0-9a-z~\/_]*",.*)
+    message: Action client of "$TYPE" created using variable "$ARG" as name. Please
+      use the action client's name directly in the function.
+    languages:
+      - cpp
+    severity: WARNING

@@ -1,0 +1,12 @@
+#!/bin/python3
+import subprocess
+from argparse import ArgumentParser
+from pathlib import Path
+from ament_index_python import get_package_share_directory
+
+if __name__ == "__main__":
+    parser = ArgumentParser(prog="model_adviser_cpp", description="Check ROS2 C++ code for modelling issues")
+    parser.add_argument("path", help="Path to the folder with the files to check.")
+    args = parser.parse_args()
+    conf_file = Path(get_package_share_directory("model_adviser")).joinpath("config/ros2_cpp_rules.yaml")
+    subprocess.run(["semgrep", "scan", "--config", conf_file, args.path])
